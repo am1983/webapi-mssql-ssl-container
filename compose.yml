@@ -1,0 +1,24 @@
+networks:
+  spinyourblock:
+
+services:
+  webapi:
+    build:
+      context: .
+    ports:
+      - 9090:8080
+    container_name: TestWebApi
+    networks:
+      - "spinyourblock"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - 1433:1433
+    container_name: mssql
+    networks:
+      - "spinyourblock"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=P@ssword
